@@ -13,7 +13,7 @@ class MultiFormView(TemplateView):
             forms = self.get_forms()
             kwargs["forms"] = forms.values()
             kwargs.update(**forms)
-        return super().get_context_data(**kwargs)
+        return super(MultiFormView, self).get_context_data(**kwargs)
 
     def get_success_url(self):
         if not self.success_url:
@@ -80,7 +80,7 @@ class MultiModelFormView(MultiFormView):
         return self.instances
 
     def get_form_kwargs(self, form_class):
-        kwargs = super().get_form_kwargs(form_class)
+        kwargs = super(MultiModelFormView, self).get_form_kwargs(form_class)
         class_name = self.get_form_class_name(form_class)
         instances = self.get_instances()
         if class_name in instances:
@@ -90,4 +90,4 @@ class MultiModelFormView(MultiFormView):
     def forms_valid(self):
         for form in self.get_forms().values():
             form.save()
-        return super().forms_valid()
+        return super(MultiModelFormView, self).forms_valid()
