@@ -1,0 +1,6 @@
+coverage
+twine
+wheel
+pytest
+pytest-cov
+pytest-djangoapp

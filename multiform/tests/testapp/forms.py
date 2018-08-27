@@ -1,17 +1,16 @@
 from django import forms
+from django.contrib.auth.models import Group, User
 
-from . import models
 
-
-class PostForm(forms.ModelForm):
+class UserForm(forms.ModelForm):
     class Meta:
-        model = models.Post
-        fields = ("title", "slug", "published", "content")
+        model = User
+        fields = ("username", "first_name", "last_name")
 
 
-class AuthorForm(forms.ModelForm):
+class GroupForm(forms.ModelForm):
     class Meta:
-        model = models.Author
+        model = Group
         fields = ("name",)
 
 
