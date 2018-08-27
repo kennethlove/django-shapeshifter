@@ -199,3 +199,11 @@ following list of contributors!**
 * Kenneth Love
 * Lacey Williams Henschel
 * Tim Allen
+
+## What's with the name? And the version?
+
+The original name was already taken so a new one had to be found. Since this
+package deals with multiple forms, `shapeshifter` was a good pun (shapeshifters
+can take on many forms).
+
+The version number is based on the date of release.
