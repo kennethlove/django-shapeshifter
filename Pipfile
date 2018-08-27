@@ -5,12 +5,15 @@ name = "pypi"
 
 [packages]
 django = "*"
+
+[dev-packages]
 pytest = "*"
 pytest-cov = "*"
 pytest-pythonpath = "*"
 pytest-djangoapp = "*"
-
-[dev-packages]
+wheel = "*"
+twine = "*"
+keyring = "*"
 
 [requires]
 python_version = "3.6"
