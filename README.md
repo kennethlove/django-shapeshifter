@@ -1,23 +1,23 @@
-# django-multiform
+# django-shapeshifter
 
 A common problem in Django is how to have a view, especially a class-based view
-that can display and process multiple forms at once. `django-multiform` aims
+that can display and process multiple forms at once. `django-shapeshifter` aims
 to make this problem much more trivial.
 
-Right now, `django-multiform` can handle any (well, theoretically) number of
+Right now, `django-shapeshifter` can handle any (well, theoretically) number of
 forms in a single view. A view class is provided for multiple standard forms
 or model forms. To mix and match these form types, you'll need to do a little
 extra work. Here's how to use the package:
 
 ## Installation
 
-`$ pip install django-multiform`
+`$ pip install django-shapeshifter`
 
-You should not need to add `multiform` to your `INSTALLED_APPS`.
+You should not need to add `shapeshifter` to your `INSTALLED_APPS`.
 
 ## Usage
 
-You use `django-mulitform` just like you use Django's built-in class-based
+You use `django-shapeshifter` just like you use Django's built-in class-based
 views. You should be able to use the provided views with any mixins you're
 already using in your project, too, like `LoginRequired`.
 
@@ -27,7 +27,7 @@ Let's look at using the view with a few standard forms:
 ```python
 from django.urls import reverse_lazy
 
-from multiform.views import MultiFormView
+from shapeshifter.views import MultiFormView
 
 from . import forms
 
@@ -187,7 +187,7 @@ Thank you for your interest, time, and energy! Contributions are always
 welcome and will be reviewed as quickly as possible (that said, we're all
 volunteers with other jobs/responsibilities so it might be awhile).
 
-Please fork this repository and make your changes in the `multiform` package.
+Please fork this repository and make your changes in the `shapeshifter` package.
 Be sure to add a test for any functionality changes. Once all tests pass, you
 can submit a pull request with your changes, the rationale behind them, and
 any special steps the maintainers will need to take to test your changes or

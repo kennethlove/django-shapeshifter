@@ -1,7 +1,7 @@
 import os
 import sys
 
-import multiform
+import shapeshifter
 
 from setuptools import setup, find_packages
 
@@ -19,14 +19,14 @@ if sys.argv[-1] == "publish":
     print("You probably want to tag the version now:")
     print(
         "  git tag -a %s -m 'version %s'"
-        % (mulitform.__version__, multiform.__version__)
+        % (shapeshifter.__version__, shapeshifter.__version__)
     )
     print("  git push --tags")
     sys.exit()
 
 setup(
-    name="django-multiform",
-    version=multiform.__version__,
+    name="django-shapeshifter",
+    version=shapeshifter.__version__,
     description="Class-based views for simultaneously handling multiple forms in Django",
     long_description=open('README.md').read(),
     classifiers=[
@@ -42,7 +42,7 @@ setup(
     keywords=["forms", "django", "multi", "cbv", "class-based views"],
     author="Kenneth Love",
     author_email="kennethlove@gmail.com",
-    url="https://github.com/kennethlove/django-multiform",
+    url="https://github.com/kennethlove/django-shapeshifter",
     license="Apache 2.0",
     packages=find_packages(),
     include_package_data=True,

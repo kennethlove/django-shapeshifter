@@ -1,5 +1,5 @@
-# CHANGELOG for `django-multiform`
+# CHANGELOG for `django-shapeshifter`
 
-## 18.8.26
+## 18.8.27
 
 * Initial release

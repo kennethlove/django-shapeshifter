@@ -11,9 +11,6 @@ pytest = "*"
 pytest-cov = "*"
 pytest-pythonpath = "*"
 pytest-djangoapp = "*"
-wheel = "*"
-twine = "*"
-keyring = "*"
 
 [requires]
 python_version = "3.6"
