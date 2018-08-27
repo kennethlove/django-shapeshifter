@@ -2,7 +2,7 @@ from unittest import mock
 
 from django.test import TestCase, RequestFactory
 
-from multi.views import Other
+from multiform.views import Other
 
 initial_data = {"numbersform": {"minimum": 42}}
 

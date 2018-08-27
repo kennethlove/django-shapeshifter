@@ -2,8 +2,8 @@ from unittest import mock
 
 from django.test import TestCase, RequestFactory
 
-from multi.models import Author
-from multi.views import Create
+from multiform.models import Author
+from multiform.views import Create
 
 author, _ = Author.objects.get_or_create(name='Katherine Johnson')
 instances = {'authorform': author}

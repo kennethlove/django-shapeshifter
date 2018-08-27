@@ -59,7 +59,7 @@ class MultiFormView(TemplateView):
         """At least one form is invalid, render all forms"""
         return self.render_to_response(self.get_context_data())
 
-    def validate_forms(self):
+    def validate_forms(self) -> bool:
         """Make sure all forms are valid"""
         forms = self.get_forms()
         return all(form.is_valid() for form in forms.values())
