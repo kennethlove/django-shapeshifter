@@ -16,6 +16,14 @@ def test_multiple_forms_rendered(request_factory):
     assert "Name" in response.rendered_content
 
 
+def test_multiple_forms_success_mixin(request_factory):
+    """Multiple forms should be rendered to the template"""
+    request = request_factory().get("/")
+    response = Membership.as_view()(request)
+    assert response.status_code == 200
+    assert "this is a success message" in response.rendered_content
+
+
 def test_prefixes(request_factory):
     """Each form should have an auto-generated prefix"""
     request = request_factory().get("/")
