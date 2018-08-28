@@ -18,8 +18,8 @@ You should not need to add `shapeshifter` to your `INSTALLED_APPS`.
 ## Usage
 
 You use `django-shapeshifter` just like you use Django's built-in class-based
-views. You should be able to use the provided views with any mixins you're
-already using in your project, too, like `LoginRequiredMixin`.
+views. You should be able to use the provided views with most mixins you're
+already using in your project, such as `LoginRequiredMixin`. Certain mixins may not work, such as `SuccessMessageMixin`, which is trigged on the `form_valid()` method. 
 
 Let's look at using the view with a few standard forms:
 
@@ -138,11 +138,10 @@ from shapeshifter.views import MultiModelFormView
 
 from .forms import UserForm, ProfileForm
 
-class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, MultiModelFormView):
+class UserUpdateView(LoginRequiredMixin, MultiModelFormView):
     form_classes = (UserForm, ProfileForm)
     template_name = 'my_app/forms.html'
     success_url = reverse_lazy('home')
-    success_message = 'Your name and profile name have been updated.'
 
     def get_instances(self):
         instances = {
