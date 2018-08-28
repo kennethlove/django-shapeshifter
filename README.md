@@ -147,7 +147,7 @@ class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, MultiModelFormView
     def get_instances(self):
         instances = {
             'userform': self.request.user,
-            'groupform': Profile.objects.filter(
+            'profileform': profile_instance = Profile.objects.filter(
                 user=self.request.user,
             ).first(),
         }
