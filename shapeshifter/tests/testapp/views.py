@@ -1,11 +1,11 @@
 from django.urls import reverse_lazy
 
 from shapeshifter import views as shape_views
-from shapeshifter.mixins import SuccessMessageMixin
+from shapeshifter.mixins import MultiSuccessMessageMixin
 from testapp import forms
 
 
-class Membership(SuccessMessageMixin, shape_views.MultiModelFormView):
+class Membership(MultiSuccessMessageMixin, shape_views.MultiModelFormView):
     form_classes = (forms.UserForm, forms.GroupForm)
     template_name = 'testapp/forms.html'
     success_url = reverse_lazy('membership')
