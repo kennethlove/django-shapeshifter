@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 class MultiFormView(TemplateView):
     """
-    This view handles multiple forms on the same rendered page.
+    This view renders multiple model forms on the same page.
 
     Forms are passed in as `form_classes` and looped over and rendered
     in the same <form>.
@@ -82,7 +82,7 @@ class MultiFormView(TemplateView):
 
 class MultiModelFormView(MultiFormView):
     """
-    This view handles multiple model forms on the same rendered page.
+    This view renders multiple model forms on the same page.
 
     Forms are passed in as `form_classes` and looped over and rendered
     in the same <form>.
