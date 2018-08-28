@@ -19,7 +19,7 @@ You should not need to add `shapeshifter` to your `INSTALLED_APPS`.
 
 You use `django-shapeshifter` just like you use Django's built-in class-based
 views. You should be able to use the provided views with most mixins you're
-already using in your project, such as `LoginRequiredMixin`. Certain mixins may not work, such as `SuccessMessageMixin`, which is trigged on the `form_valid()` method. 
+already using in your project, such as `LoginRequiredMixin`. Certain mixins may have to be refactored, such as `SuccessMessageMixin`, which is trigged on the `form_valid()` method. 
 
 Let's look at using the view with a few standard forms:
 
@@ -135,10 +135,11 @@ class ProfileForm(forms.ModelForm):
 *my_app/views.py*
 ```python
 from shapeshifter.views import MultiModelFormView
+from shapeshifter.mixins import MultiSuccessMessageMixin
 
 from .forms import UserForm, ProfileForm
 
-class UserUpdateView(LoginRequiredMixin, MultiModelFormView):
+class UserUpdateView(LoginRequiredMixin, MultiSuccessMessageMixin, MultiModelFormView):
     form_classes = (UserForm, ProfileForm)
     template_name = 'my_app/forms.html'
     success_url = reverse_lazy('home')
@@ -238,6 +239,12 @@ names as keys. The values should be the instance to use for the form.
 
 * `get_instances(self)` - Returns the value of `instances`. Override this if
 you need to dynamically fetch the instances for the forms.
+
+### `MultiSuccessMessageMixin` attributes and methods
+
+* `success_message = None` - A string containing a success message to add through Django's messages framework.
+
+* `forms_valid(self)` - Returns the response after adding the success message.
 
 ## Contributing
 
