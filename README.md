@@ -94,7 +94,66 @@ All of the above code is valid for model forms, too, with one exception. For
 model forms, instead of extending `MultiFormView`, you'll extend
 `MultiModelFormView`. There are two major differences between the classes but
 the most important one is that `forms_valid` will call `form.save()` on each
-form.
+form. Here is an example allowing a user to edit their `User` `first_name` and `last_name`, and their first `Profile` `name` on one form:
+
+*my_app/models.py*
+```python
+from django.contrib.auth.models import User
+
+class Profile(models.Model):
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, realted_name='profiles', on_delete=models.CASCADE)
+```
+
+*my_app/forms.py*
+```python
+from django.contrib.auth.models import User
+
+from .models import Profile
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+
+        fields = [
+            'first_name',
+            'last_name',
+        ]
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Group
+        fields = [
+            'name',
+        ]
+
+        labels = {
+            'name': 'Profile Name',
+        }
+```
+
+*my_app/views.py*
+```python
+from shapeshifter.views import MultiModelFormView
+
+from .forms import UserForm, ProfileForm
+
+class UserUpdateView(LoginRequiredMixin, SuccessMessageMixin, MultiModelFormView):
+    form_classes = (UserForm, ProfileForm)
+    template_name = 'my_app/forms.html'
+    success_url = reverse_lazy('home')
+    success_message = 'Your name and profile name have been updated.'
+
+    def get_instances(self):
+        instances = {
+            'userform': self.request.user,
+            'groupform': Profile.objects.filter(
+                user=self.request.user,
+            ).first(),
+        }
+
+        return instances
+```
 
 ### What if I want to mix model and standard form?
 
@@ -171,7 +230,7 @@ method is executed. By default, it re-renders the view, presenting the forms
 with their errors. You can override this method if you need something else to
 happen when not all forms are valid.
 
-### `MultiModelForm`'s extra attributes and methods
+### `MultiModelFormView`'s extra attributes and methods
 
 As mentioned above, a few things are handled differently in `MultiModelFormView`.
 
