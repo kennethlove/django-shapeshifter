@@ -102,7 +102,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     name = models.CharField(max_length=255)
-    user = models.ForeignKey(User, realted_name='profiles', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='profiles', on_delete=models.CASCADE)
 ```
 
 *my_app/forms.py*
