@@ -19,7 +19,7 @@ You should not need to add `shapeshifter` to your `INSTALLED_APPS`.
 
 You use `django-shapeshifter` just like you use Django's built-in class-based
 views. You should be able to use the provided views with any mixins you're
-already using in your project, too, like `LoginRequired`.
+already using in your project, too, like `LoginRequiredMixin`.
 
 Let's look at using the view with a few standard forms:
 

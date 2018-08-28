@@ -4,6 +4,13 @@ from django.views.generic import TemplateView
 
 
 class MultiFormView(TemplateView):
+    """
+    This view handles multiple forms on the same rendered page.
+
+    Forms are passed in as `form_classes` and looped over and rendered
+    in the same <form>.
+    """
+
     initial = {}
     form_classes = None
     success_url = None
@@ -74,6 +81,16 @@ class MultiFormView(TemplateView):
 
 
 class MultiModelFormView(MultiFormView):
+    """
+    This view handles multiple model forms on the same rendered page.
+
+    Forms are passed in as `form_classes` and looped over and rendered
+    in the same <form>.
+
+    For UPDATEs or DELETEs, the `instance` can be passed, either as
+    `instances` or returned as a dictionary by the `get_instances()`
+    method.
+    """
     instances = {}
 
     def get_instances(self):
