@@ -2,6 +2,7 @@
 {% for message in messages %}
     <p>{{ message }}</p>
 {% endfor %}
+{% endif %}
 <form method="POST">
 {% csrf_token %}
 {% for form in forms %}
