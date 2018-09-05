@@ -244,6 +244,8 @@ you need to dynamically fetch the instances for the forms.
 
 * `success_message = None` - A string containing a success message to add through Django's messages framework.
 
+* `get_success_message(self)` - A method which returns the success message. Defaults to self.success_message.
+
 * `forms_valid(self)` - Returns the response after adding the success message.
 
 ## Contributing
