@@ -12,7 +12,9 @@ class MultiSuccessMessageMixin(object):
 
     def forms_valid(self):
         response = super(MultiSuccessMessageMixin, self).forms_valid()
-        if self.get_success_message():
-            messages.success(self.request, self.success_message)
+
+        success_message = self.get_success_message()
+        if success_message:
+            messages.success(self.request, success_message)
 
         return response
