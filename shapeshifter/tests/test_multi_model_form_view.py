@@ -2,7 +2,7 @@ from unittest import mock
 
 from django.contrib.auth.models import User, Group
 
-from testapp.views import Membership
+from testapp.views import Membership, MembershipSuccessMethod
 
 initial_data = {"groupform": {"name": "Admins"}}
 
@@ -14,6 +14,22 @@ def test_multiple_forms_rendered(request_factory):
     assert response.status_code == 200
     assert "Username" in response.rendered_content
     assert "Name" in response.rendered_content
+
+
+def test_multiple_forms_success_mixin(request_factory):
+    """Multiple forms should be rendered to the template"""
+    request = request_factory().get("/")
+    response = Membership.as_view()(request)
+    assert response.status_code == 200
+    assert "this is a success message" in response.rendered_content
+
+
+def test_multiple_forms_success_mixin_method(request_factory):
+    """Multiple forms should be rendered to the template"""
+    request = request_factory().get("/")
+    response = MembershipSuccessMethod.as_view()(request)
+    assert response.status_code == 200
+    assert "this is a method success message" in response.rendered_content
 
 
 def test_prefixes(request_factory):
