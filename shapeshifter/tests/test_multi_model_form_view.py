@@ -1,10 +1,21 @@
 from unittest import mock
 
 from django.contrib.auth.models import User, Group
+from django.contrib.messages.storage.fallback import FallbackStorage
+from django.contrib.sessions.middleware import SessionMiddleware
 
 from testapp.views import Membership, MembershipSuccessMethod
 
 initial_data = {"groupform": {"name": "Admins"}}
+
+
+def get_session_request(request):
+    middleware = SessionMiddleware()
+    middleware.process_request(request)
+    request.session.save()
+    messages = FallbackStorage(request)
+    setattr(request, "_messages", messages)
+    return request
 
 
 def test_multiple_forms_rendered(request_factory):
@@ -18,18 +29,42 @@ def test_multiple_forms_rendered(request_factory):
 
 def test_multiple_forms_success_mixin(request_factory):
     """Multiple forms should be rendered to the template"""
-    request = request_factory().get("/")
-    response = Membership.as_view()(request)
-    assert response.status_code == 200
-    assert "this is a success message" in response.rendered_content
+    request = request_factory().post(
+        "/",
+        data={
+            "userform-first_name": "Katherine",
+            "userform-last_name": "Johnson",
+            "userform-username": "KJohnson",
+            "groupform-name": "Admins",
+        },
+    )
+    request = get_session_request(request)
+
+    with mock.patch.object(Group, "save"), mock.patch.object(User, "save"):
+        Membership.as_view()(request)
+        assert "this is a success message" in [
+            m.message for m in request._messages._queued_messages
+        ]
 
 
 def test_multiple_forms_success_mixin_method(request_factory):
     """Multiple forms should be rendered to the template"""
-    request = request_factory().get("/")
-    response = MembershipSuccessMethod.as_view()(request)
-    assert response.status_code == 200
-    assert "this is a method success message" in response.rendered_content
+    request = request_factory().post(
+        "/",
+        data={
+            "userform-first_name": "Katherine",
+            "userform-last_name": "Johnson",
+            "userform-username": "KJohnson",
+            "groupform-name": "Admins",
+        },
+    )
+    request = get_session_request(request)
+
+    with mock.patch.object(Group, "save"), mock.patch.object(User, "save"):
+        MembershipSuccessMethod.as_view()(request)
+        assert "this is a method success message" in [
+            m.message for m in request._messages._queued_messages
+        ]
 
 
 def test_prefixes(request_factory):
@@ -49,7 +84,7 @@ def test_initial(request_factory):
 
 
 @mock.patch.object(Membership, "forms_valid", lambda: None)
-def test_form_validation(request_factory):
+def test_form_validation_invalid(request_factory):
     """Forms should still provide errors"""
     request = request_factory().post(
         "/",
@@ -59,6 +94,7 @@ def test_form_validation(request_factory):
             "groupform-name": "Admins",
         },
     )
+    request = get_session_request(request)
     response = Membership.as_view()(request)
     context = response.context_data
     assert context["userform"].errors
@@ -88,6 +124,7 @@ def test_form_validation(request_factory):
             "groupform-name": "Admins",
         },
     )
+    request = get_session_request(request)
     with mock.patch.object(Group, "save") as mock_group, mock.patch.object(
         User, "save"
     ) as mock_user:
