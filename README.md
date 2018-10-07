@@ -143,6 +143,7 @@ class UserUpdateView(LoginRequiredMixin, MultiSuccessMessageMixin, MultiModelFor
     form_classes = (UserForm, ProfileForm)
     template_name = 'my_app/forms.html'
     success_url = reverse_lazy('home')
+    success_message = 'Your profile has been updated.'
 
     def get_instances(self):
         instances = {
