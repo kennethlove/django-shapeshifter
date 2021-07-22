@@ -18,7 +18,7 @@ class MultiFormView(TemplateView):
     def get_context_data(self, **kwargs):
         if "forms" not in kwargs:
             forms = self.get_forms()
-            kwargs["forms"] = forms.values()
+            kwargs["forms"] = list(forms.values())
             kwargs.update(**forms)
         return super(MultiFormView, self).get_context_data(**kwargs)
 
